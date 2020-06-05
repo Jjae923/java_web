@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>사칙연산</h2>
+	<div>
+		<form action="../rules" method="post">
+			<input type="text" name="num1" size="5"/>
+			<select name="operator" id="">
+				<option value="+">+</option>
+				<option value="-">-</option>
+				<option value="*">*</option>
+				<option value="/">/</option>
+			</select>
+			<input type="text" name="num2" size="5"/>
+			<button type="button" onclick="test()">계산하기</button>
+			<button type="reset">다시계산</button>
+		</form>
+	</div>
+	<script>
+		function test() {
+			// num1 / num2 값 가져오기
+			//document.getElementsByName("num1")[0].value; // NodeList
+			// 콘솔에 찍기
+			let num1 = document.querySelector("[name='num1']"); // <input type="text" name="num1" size="5"/>
+			let num2 = document.querySelector("[name='num2']"); // <input type="text" name="num2" size="5"/>
+			//console.log(num1.value);
+			
+			// num1과 num2의 값이 비어있는지 확인하고
+			// 비어있다면 alert('num1 값을 확인해 주세요')
+			// num1 값을 입력할 수 있도록 focus
+			if(num1.value===""){
+				alert("num1 값을 확인해 주세요");
+				num1.focus();
+				return;
+			}
+			if(num2.value===""){
+				alert("num2 값을 확인해 주세요");
+				num2.focus();
+				return;
+			}
+			// 보낼 폼 가져오기
+			document.querySelector("form").submit();
+
+			
+		}
+	</script>
+</body>
+</html>
