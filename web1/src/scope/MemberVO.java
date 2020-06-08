@@ -2,6 +2,8 @@ package scope;
 
 import lombok.Data;
 
+
+
 @Data
 public class MemberVO {
 	private int no;

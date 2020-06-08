@@ -4,7 +4,7 @@
 <div class="content">
 	<div class="container">
 		<h3>USER 삭제</h3>
-		<form>
+		<form action="process/delProcess.jsp" method="post">
 			<div class="form-group row">
 				<label for="no" class="col-sm-2 col-form-label">No</label>
 				<div class="col-sm-8">

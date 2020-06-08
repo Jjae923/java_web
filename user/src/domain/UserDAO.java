@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-	
 	static {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
@@ -16,7 +16,6 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
-	
 	public static Connection getConnection() {
 		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 		String user = "javadb";
@@ -29,11 +28,10 @@ public class UserDAO {
 		}
 		return null;
 	}
-	
 	public int userInsert(UserVO vo) {
 		Connection con = getConnection();
 		String sql = "insert into userTBL values(user_seq.nextVal,?,?,?,?)";
-		PreparedStatement pstmt;
+		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -53,11 +51,12 @@ public class UserDAO {
 				e2.printStackTrace();
 			}
 		}
+		return result;
 	}
 	
 	// 전체 User 가져오기
 	public List<UserVO> getList(){
-		
+		List<UserVO> list = new ArrayList<UserVO>();
 		String sql = "select * from userTBL";
 		try(Connection con = getConnection();
 			PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -75,5 +74,23 @@ public class UserDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		return list;
+	}
+	// 삭제
+	// delete from userTBL where no=? and userName=?
+	public int userDelete(int no, String userName) {
+		int result = 0;
+		String sql = "delete from userTBL where no=? and userName=?";
+		try(Connection con = getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setInt(1, no);
+				pstmt.setString(2, userName);
+				
+				result = pstmt.executeUpdate();
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

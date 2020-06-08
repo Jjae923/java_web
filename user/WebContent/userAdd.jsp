@@ -4,7 +4,7 @@
 <div class="content">
 	<div class="container">
 		<h3>USER 입력</h3>
-		<form action="process/addProcess.jsp" method="post">			
+		<form action="process/addProcess2.jsp" method="post">			
 			<div class="form-group row">
 				<label for="userName" class="col-sm-2 col-form-label">userName</label>
 				<div class="col-sm-8">

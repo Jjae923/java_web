@@ -1,6 +1,13 @@
+<%@page import="domain.UserVO"%>
+<%@page import="domain.UserDAO"%>
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="layout/header.jsp"></jsp:include>
+<%
+	UserDAO dao = new UserDAO();
+	List<UserVO> list = dao.getList();
+%>
 <div class="content"> 
 	<div class="container">
 		<h3>USER 전체 조회</h3> 
@@ -13,6 +20,13 @@
 		    </tr>
 		  </thead>
 		  <tbody><!-- user 내용 뿌려줄 부분 -->
+		  	<%for(UserVO vo:list){ %>
+		  	<tr>
+		  		<td><%=vo.getNo() %></td>
+		  		<td><%=vo.getUserName() %></td>
+		  		<td><%=vo.getMobile() %></td>
+		  	</tr>
+		  	<%} %>
 		  </tbody>
 	</table>
 </div>
