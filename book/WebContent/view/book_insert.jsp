@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<form method='post' action=''>	
+<form method='post' action='process/book_insert_process.jsp'>	
   <div class="form-group">
     <label for="code">Code</label>
     <input type="text" class="form-control" name="code" placeholder="code" required="required">    

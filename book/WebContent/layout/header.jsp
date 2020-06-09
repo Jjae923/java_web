@@ -11,7 +11,7 @@
 <title>도서 관리 시스템</title>
 <script>
   $(function () {   //페이지 로드시 첫 메뉴에 해당하는 것 보여주기
-	  $('#myList a[href="#insert"]').tab('show');
+	  $('#myList a[href="#insert"]').tab('show');  // id = "insert" 인 페이지를 보여줘
   });
 </script>
 </head>
