@@ -9,6 +9,6 @@ $(function() {
 		location.href='../process/logoutProcess.jsp';
 	})
 	$("#leave").click(function() {
-		
+		location.href='leaveForm.jsp';		
 	})
 })

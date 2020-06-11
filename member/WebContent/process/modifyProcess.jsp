@@ -22,7 +22,9 @@
 		if(result>0){
 			session.invalidate();
 			response.sendRedirect("../index.jsp");
-		}		
+		}else {
+			response.sendRedirect("../view/modifyForm.jsp");
+		}
 	}else{
 		//현재 비밀번호가 틀린경우 다시 modifyForm.jsp 를 보여주기
 		response.sendRedirect("../view/modifyForm.jsp");

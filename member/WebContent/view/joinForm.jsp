@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
 <div class="container" style="margin-top:40px">
-<form id="joinform" action="" method="post">
+<form id="joinform" action="../process/joinProcess.jsp" method="post">
 	<div class="form-group row justify-content-center">
 		<label for="userid" class="col-sm-2 col-form-label">아이디</label>
 		<div class="col-sm-6">
