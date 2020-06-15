@@ -74,7 +74,10 @@
 	</div>
 	<script>
 		$('#myList a[href="#all"]').on('shown.bs.tab', function (e) {
-			location.href="book_selectAll.jsp";
+			location.href="select.do";
+		});
+		$('#myList a[href="#search"]').on('click', function (e) {
+			location.href="index.jsp?tab=search";
 		});
 	</script>
 	</body>
