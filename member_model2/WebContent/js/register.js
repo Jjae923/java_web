@@ -64,15 +64,15 @@ $(function(){ // 시작하겠다!
 	
 	// 규칙을 검증할 메소드 추가
 	$.validator.addMethod("validID",function(value){
-		const regId = /(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,12}/;
-		return regId.test(value);
-	}, "아이디는 영문자, 숫자, 특수문자의 조합으로 6~12자리로 만들어야 합니다.");
+		const regId = /(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,12}$/;
+		return regId.test(value);	
+	},"아이디는 영문자,숫자,특수문자의 조합으로 6~12자리로 만들어야 합니다.");
 	$.validator.addMethod("validPWD",function(value){
-		const regPwd = /(?=^[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}/;
-		return regPwd.test(value);
-	}, "비밀번호는 영문자로 시작하고, 숫자의 조합으로 8~15자리로 만들어야 합니다.");
+		const regPwd = /(?=^[A-Za-z])(?=.+\d)[A-Za-z\d]{8,15}$/;
+		return regPwd.test(value);	
+	},"비밀번호는 영문자로 시작하고,숫자의 조합으로 8~15자리로 만들어야 합니다.");
 	$.validator.addMethod("validMobile",function(value){
-		const regMobile = /^\d{3}\d{4}\d{4}&/;
-		return regMobile.test(value);
-	}, "-를 제외한 번호만 입력해 주세요");
+		const regMobile = /^\d{3}\d{4}\d{4}$/;
+		return regMobile.test(value);	
+	},"-를 제외한 번호만 입력해 주세요");
 })
