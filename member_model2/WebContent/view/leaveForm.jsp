@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
 <%
-	MemberVO login = (MemberVO)session.getAttribute("login");
+	//MemberVO login = (MemberVO)session.getAttribute("login");
 %>
 <form id="leaveform" action="../leave.do" method="post">
 	<div class="card"  style="width: 40rem;margin:40px auto;">	
@@ -13,7 +13,7 @@
 	 	<div class="card-body">	
 			<div class="form-group row justify-content-center">		
 				<div class="col-sm-10">	
-					<input type="text" name="userid" id="userid" class="form-control" value="<%=login.getUserid() %>" readonly/>
+					<input type="text" name="userid" id="userid" class="form-control" value="${login.userid}" readonly/>
 			 		<small id="userid" class="text-info"></small>		
 				</div>
 			</div>	

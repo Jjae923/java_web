@@ -2,9 +2,10 @@
 <%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	// request 영역에 담아놓은 search 가져오기
-	List<BookVO> search = (List<BookVO>)request.getAttribute("search");	
+	//List<BookVO> search = (List<BookVO>)request.getAttribute("search");	
 %>
 <!DOCTYPE html>
 <html>
@@ -51,14 +52,22 @@
 								<th scope="col">가 격</th>
 							</thead>
 							<tbody><%--검색 결과 목록이 보여지는 곳 --%>
-								<% for(BookVO vo:search) { %>
+								<%-- <% for(BookVO vo:search) {
 									<tr>
 										<td><%=vo.getCode() %></td>
 										<td><%=vo.getTitle() %></td>
 										<td><%=vo.getWriter() %></td>
 										<td><%=vo.getPrice() %></td>
 									</tr>
-								<% } %>
+								<% } %> --%>
+								<c:forEach var="vo" items="${search}">
+									<tr>
+										<td>${vo.code}</td>
+										<td>${vo.title}</td>
+										<td>${vo.writer}</td>
+										<td>${vo.price}</td>
+									</tr>
+								</c:forEach>
 							</tbody>												
 						</table>
 				     </div>

@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
+<style>
+	.text-info{
+		color:red !important;
+	}
+</style>
 <div class="container" style="margin-top:40px">
 <form id="joinform" action="../join.do" method="post">
 	<div class="form-group row justify-content-center">
@@ -58,5 +63,9 @@
 </div>
 
 <%-- 사용자 validate 코드 삽입하기 --%>
-<script src=""></script>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- jQuery-validation plugin -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+<script src="../js/join.js"></script>
 <%@include file="../layout/footer.jsp" %>
