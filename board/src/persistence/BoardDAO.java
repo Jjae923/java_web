@@ -54,7 +54,7 @@ public class BoardDAO {
 		return result;
 	}
 	
-	//전체 리스트 가져오기
+	// 전체 리스트 가져오기
 	// 번호,제목,작성자,날짜,조회수
 	public List<BoardVO> getList(){
 		String sql = "select bno,title,name,regdate,readcount from board order by bno desc";
@@ -83,7 +83,7 @@ public class BoardDAO {
 	public BoardVO getRow(int bno){
 		
 		BoardVO vo = null;
-		String sql = "select name, title, content, attach from board where bno=?";
+		String sql = "select bno,name, title, content, attach from board where bno=?";
 
 		try(Connection con = getConnection();
 			PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -92,15 +92,57 @@ public class BoardDAO {
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				vo = new BoardVO();
-				vo.setName(rs.getString(1));
-				vo.setTitle(rs.getString(2));
-				vo.setContent(rs.getString(3));
-				vo.setAttach(rs.getString(4));
+				vo.setBno(rs.getInt(1));
+				vo.setName(rs.getString(2));
+				vo.setTitle(rs.getString(3));
+				vo.setContent(rs.getString(4));
+				vo.setAttach(rs.getString(5));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return vo;
+	}
+	
+	// 게시글 수정
+	public int updateArticle(BoardVO vo) {
+		
+		int result = 0;
+		
+		if(vo.getAttach()==null) { // attach가 없는 경우
+			String sql = "update board set title=?, content=? where bno=? and password=?";
+			
+			try(Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+					pstmt.setString(1, vo.getTitle());
+					pstmt.setString(2, vo.getContent());
+					pstmt.setInt(3, vo.getBno());
+					pstmt.setString(4, vo.getPassword());
+					
+					result = pstmt.executeUpdate();
+					
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else { // attach가 생긴 경우
+			String sql = "update board set title=?, content=?, attach=? where bno=? and password=?";
+			
+			try(Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+						pstmt.setString(1, vo.getTitle());
+						pstmt.setString(2, vo.getContent());
+						pstmt.setString(3, vo.getAttach());
+						pstmt.setInt(4, vo.getBno());
+						pstmt.setString(5, vo.getPassword());
+						
+						result = pstmt.executeUpdate();
+						
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
+		return result;
 	}
 	
 	

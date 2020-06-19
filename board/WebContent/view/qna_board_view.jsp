@@ -15,19 +15,19 @@
 				<div class="form-group row">
 					<label for="name" class="col-sm-2 col-form-label">글쓴이</label>
 					<div class="col-sm-10">
-						<input type="text" name="name" size="10" class="form-control" maxlength='10' value="${vo.name}" >
+						<input type="text" name="name" size="10" class="form-control" maxlength='10' value="${vo.name}" readonly>
 					</div>
 				</div>
 				<div class="form-group  row">
 					<label for="title" class="col-sm-2 col-form-label">제목</label>
 					<div class="col-sm-10">
-						<input type="text" name="title" size="50" class="form-control"	maxlength='100' value="${vo.title}">
+						<input type="text" name="title" size="50" class="form-control"	maxlength='100' value="${vo.title}" readonly>
 					</div>
 				</div>
 				<div class="form-group  row">
 					<label for="content" class="col-sm-2 col-form-label">내용</label>
 					<div class="col-sm-10">
-						<textarea name='board_content' cols='60' class="form-control" rows='15'>${vo.content}</textarea>
+						<textarea name='board_content' cols='60' class="form-control" rows='15' readonly>${vo.content}</textarea>
 					</div>
 				</div>
 				<div class="form-group  row">
@@ -53,11 +53,29 @@
 					<button type="button" class="btn btn-success" id="reply">답변</button>
 					<button type="button" class="btn btn-warning" id="modify">수정</button>
 					<button type="button" class="btn btn-danger" id="delete">삭제</button>
-					<button type="button" class="btn btn-primary" id="list">목록보기</button>
+					<button type="button" class="btn btn-primary" id="list" >목록보기</button>
 				</div>
 				<div style="height:20px"></div>
 			</div>
 		</form>
 	</div>
 </section>
+<form method="post" role="form">
+	<input type="hidden" name="bno" value="${vo.bno}"/> <!-- 안보이는 form을 만들어서 수정을 눌렀을 때 불러오도록 -->
+</form>
+<script>
+	$(function(){
+		
+		let formObj = $("form[role='form']");
+		
+		$('#list').click(function(){
+			location.href="list.do";
+		})
+		$('#modify').click(function(){
+			/* form에 action을 줘야 이동할 수 있으나 버튼마다 다른 action을 주기위해 form에 안붙이고 function에 붙임 */
+			formObj.attr("action","modify.do");
+			formObj.submit(); 
+		})
+	})
+</script>
 <%@include file="../include/footer.jsp"%>
