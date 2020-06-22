@@ -6,17 +6,16 @@ import javax.servlet.http.HttpServletResponse;
 import domain.BoardVO;
 import persistence.BoardDAO;
 
-public class ViewAction implements Action {
+public class ReplyViewAction implements Action {
 	
 	private String path;
 	
-	public ViewAction(String path) {
+	public ReplyViewAction(String path) {
 		this.path = path;
 	}
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		// list.do => 제목 클릭 ( view.do?bno=해당번호 )
 		// bno 가져오기
 		int bno = Integer.parseInt(req.getParameter("bno"));
 		
@@ -25,9 +24,9 @@ public class ViewAction implements Action {
 		BoardVO vo = dao.getRow(bno);
 		// 가져온 게시물 request에 담고 페이지 이동
 		if(vo!=null) { // 
-			req.setAttribute("vo", vo);
+			req.setAttribute("vo", vo); // reply.jsp에 있음
 		}else {
-			path = "/list.do";
+			path = "/view.do?bno="+bno;
 			return new ActionForward(path, true);
 		}
 		return new ActionForward(path, false);

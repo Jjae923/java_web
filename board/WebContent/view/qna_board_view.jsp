@@ -76,6 +76,15 @@
 			formObj.attr("action","modify.do");
 			formObj.submit(); 
 		})
+		$('#reply').click(function(){
+			formObj.attr("action","replyView.do");
+			formObj.submit(); 
+		})
+		$('#delete').click(function(){
+			//location.href="view/qna_board_pwdCheck.jsp"; // 해당 jsp에는 bno 정보가 없음 
+			formObj.attr("action","view/qna_board_pwdCheck.jsp"); // bno를 넘겨받아야 삭제를 할 수 있기 때문에 이렇게 설정
+			formObj.submit();
+		})
 	})
 </script>
 <%@include file="../include/footer.jsp"%>
