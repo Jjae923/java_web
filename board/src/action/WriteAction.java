@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.BoardVO;
+import domain.SearchVO;
 import persistence.BoardDAO;
 import utils.FileUploadUtils;
 
@@ -15,7 +16,7 @@ public class WriteAction implements Action {
 	
 	public WriteAction(String path) {
 		this.path = path;
-	}
+	}	
 	
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -34,6 +35,11 @@ public class WriteAction implements Action {
 		String title = uploadMap.get("title");
 		String content = uploadMap.get("content");
 		String attach = uploadMap.get("attach");
+		
+		// 1페이지 / criteria, keyword == ""
+		String page = "1";
+		String criteria = "";
+		String keyword = "";
 		
 		// DB작업
 		BoardDAO dao = new BoardDAO();

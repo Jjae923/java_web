@@ -1,9 +1,12 @@
 package action;
 
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.BoardVO;
+import domain.SearchVO;
 import persistence.BoardDAO;
 
 public class ReplyAction implements Action {
@@ -25,6 +28,11 @@ public class ReplyAction implements Action {
 		String content = req.getParameter("content");
 		String password = req.getParameter("password");
 		
+		// 페이지 나누기 후 추가
+		String page = req.getParameter("page");
+		String criteria = req.getParameter("criteria");
+		String keyword = URLEncoder.encode(req.getParameter("keyword"), "utf-8");
+		
 		// 원본 글에 대한 내용
 		int bno = Integer.parseInt(req.getParameter("bno"));
 		int re_ref = Integer.parseInt(req.getParameter("re_ref"));
@@ -45,7 +53,9 @@ public class ReplyAction implements Action {
 		int result = dao.replyArticle(vo);
 
 		if(result==0) { 
-			path = "replyView.do?bno="+bno;
+			path = "replyView.do?bno="+bno+"&page="+page+"&criteria="+criteria+"&keyword="+keyword;
+		}else {
+			path += "?page="+page+"&criteria="+criteria+"&keyword="+keyword;
 		}
 		return new ActionForward(path, true);
 	}

@@ -62,6 +62,9 @@
 </section>
 <form method="post" role="form">
 	<input type="hidden" name="bno" value="${vo.bno}"/> <!-- 안보이는 form을 만들어서 수정을 눌렀을 때 불러오도록 -->
+	<input type="hidden" name="page" value="${search.page}"/>
+	<input type="hidden" name="criteria" value="${search.criteria}"/>
+	<input type="hidden" name="keyword" value="${search.keyword}"/>
 </form>
 <script>
 	$(function(){
@@ -69,7 +72,8 @@
 		let formObj = $("form[role='form']");
 		
 		$('#list').click(function(){
-			location.href="list.do";
+			formObj.attr("action","list.do");
+			formObj.submit(); 
 		})
 		$('#modify').click(function(){
 			/* form에 action을 줘야 이동할 수 있으나 버튼마다 다른 action을 주기위해 form에 안붙이고 function에 붙임 */

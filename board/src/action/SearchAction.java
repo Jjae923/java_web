@@ -30,8 +30,8 @@ public class SearchAction implements Action {
 		List<BoardVO> list = dao.getSearchList(criteria, keyword);
 		
 		// 결과를 req에 담고 페이지 이동
-		req.setAttribute("list", list);
-		req.setAttribute("search", new SearchVO(criteria, keyword));
+//		req.setAttribute("list", list);
+//		req.setAttribute("search", new SearchVO(criteria, keyword));
 				
 		return new ActionForward(path, false);
 	}
