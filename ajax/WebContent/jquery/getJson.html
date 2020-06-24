@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.container ul{
+		display : flex;
+		background: lightblue;
+	}	
+	.menu{		
+		width:100px;
+		height:50px;
+		display:flex;
+		justify-content: center;
+		align-items: center;
+	}
+</style>
+</head>
+<body>
+<div class="container">
+	<ul>
+		<li class="menu">메뉴1</li>
+		<li class="menu">메뉴2</li>
+		<li class="menu">메뉴3</li>
+		<li class="menu" onclick="makeRequest()">메뉴4</li>
+	</ul>
+</div>
+<div id="content"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function makeRequest(){
+	$.getJSON({
+		url : '../data/version.json',
+		success : function(data){
+			console.log(data);
+			let output = "<ul>";
+			output += "<li>"+data.version+"</li>";
+			output += "<li>"+data.codename+"</li></ul>";
+			$("#content").html(output);
+		},
+		error:function(xhr,textStauts,error){
+			alert(xhr.status);
+		}
+	})
+}
+</script>
+</body>
+</html>

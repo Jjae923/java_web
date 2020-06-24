@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.container ul{
+		display : flex;
+		background: lightblue;
+	}	
+	.menu{		
+		width:100px;
+		height:50px;
+		display:flex;
+		justify-content: center;
+		align-items: center;
+	}
+</style>
+</head>
+<body>
+<div class="container">
+	<ul>
+		<li class="menu">메뉴1</li>
+		<li class="menu">메뉴2</li>
+		<li class="menu">메뉴3</li>
+		<li class="menu" onclick="makeRequest()">메뉴4</li>
+	</ul>
+</div>
+<div id="content"></div>
+<script>
+	
+	let httpRequest = new XMLHttpRequest();
+	
+	function makeRequest(){
+		httpRequest.open("get","../data/version2.json");
+		httpRequest.onreadystatechange = getJson;
+		httpRequest.send();
+	}
+
+	function getJson(){
+		let content = document.querySelector("#content");
+		if(httpRequest.readyState===4){//request 처리가 완료됐고 응답할 준비도 완료됨
+			if(httpRequest.status === 200){//http상태코드 검사 
+				//httpRequest.responseText : 서버의 응답을 텍스트 문자열로 반환
+				//httpRequest.responseXML : 서버의 응답을 XMLDocument 객체로 반환
+				//       하고, 자바스크립트의 DOM함수를 통해 객체를 다룰 수 있음
+				
+				let response = JSON.parse(httpRequest.responseText);			
+				console.log(response);
+						
+				let resText = "<ul>";
+				
+				response.forEach(function(item) {
+					resText += "<li>version : "+item.version+"</li>";
+					resText += "<li>codename : "+item.codename+"</li>";					
+				})				
+				resText += "</ul>";
+				
+				content.innerHTML = resText;
+			}else{ //404 or 500
+				content.innerHTML = "<span style='color:red'>데이터 없음</span>";
+			}
+		}
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>getHtml</title>
+</head>
+<body onload="gethtml()">
+<!-- data/data.html ajax 기술로 가져오기 -->
+<div class="container">
+	<ul>
+		<li>메뉴1</li>
+		<li>메뉴2</li>
+		<li>메뉴3</li>
+		<li>메뉴4</li>
+	</ul>	
+</div>
+<div></div>
+<script>
+function gethtml() {
+	// 비동기 통신을 위한 객체 생성
+	let httpRequest = new XMLHttpRequest();
+	
+	// 서버에게 할 요청 설정(method, 요청자원, 비동기설정)
+	httpRequest.open("get", "../data/data2.html", true);
+	
+	// 요청전송
+	httpRequest.send();
+	
+	// 서버가 보내주는 응답에 따른 결과 처리
+	httpRequest.onreadystatechange = function(){
+		if(httpRequest.readyState===4){
+			if(httpRequest.status===200){
+				let div = document.querySelector("div:last-of-type");
+				div.innerHTML = httpRequest.responseText;
+			}else { // 404 of 500
+				alert("error");
+			}
+		}
+	}	
+}
+</script>
+</body>
+</html>

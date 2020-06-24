@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>getHtml</title>
+</head>
+<body>
+<!-- data/data.html ajax 기술로 가져오기 -->
+<div class="container">
+	<ul>
+		<li>메뉴1</li>
+		<li>메뉴2</li>
+		<li>메뉴3</li>
+		<li>메뉴4</li>
+	</ul>	
+</div>
+<div></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(function(){
+	$.ajax({
+		url:'../data/data.html', 
+		//type:'get', // 기본이 get이기때문에 따로 설정하지않았도
+		success:function(data){
+			console.log(data);
+			$("div:last-of-type").html(data);
+		},
+		error:function(xhr,textStatus,errorthrown){
+			alert(textStatus+" "+xhr.status);
+		}
+	})
+})
+</script>
+</body>
+</html>

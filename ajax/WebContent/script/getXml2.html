@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.container ul{
+		display : flex;
+		background: lightblue;
+	}	
+	.menu{		
+		width:100px;
+		height:50px;
+		display:flex;
+		justify-content: center;
+		align-items: center;
+	}
+</style>
+</head>
+<body>
+<div class="container">
+	<ul>
+		<li class="menu">메뉴1</li>
+		<li class="menu">메뉴2</li>
+		<li class="menu">메뉴3</li>
+		<li class="menu" onclick="makeRequest()">메뉴4</li>
+	</ul>
+</div>
+<div id="content"></div>
+<script>
+	let httpRequest = new XMLHttpRequest();
+	
+	function makeRequest(){
+		httpRequest.open("get","../data/school.xml");
+		httpRequest.onreadystatechange = getXML;
+		httpRequest.send();
+	}
+	function getXML(){
+		let content = document.querySelector("#content");
+		if(httpRequest.readyState === 4){
+			if(httpRequest.status === 200){
+				let xmldoc = httpRequest.responseXML;
+				//console.log(xmldoc);
+				
+				let title = xmldoc.getElementsByTagName("title");
+				let time = xmldoc.getElementsByTagName("time");
+				let teacher = xmldoc.getElementsByTagName("teacher");
+				
+				/* console.log(title);
+				console.log(title[0].innerHTML);
+				console.log(title[0].nodeName); */
+				
+				let data = "<ul><li>title : "+title[0].innerHTML+"</li>";
+				data+="<li>time : "+time[0].innerHTML+"</li>";
+				data+="<li>teacher : "+teacher[0].innerHTML+"</li></ul>";
+				
+				content.innerHTML = data;
+			}else{
+				content.innerHTML = "데이터 없음";
+			}
+		}
+	}
+</script>
+</body>
+</html>
