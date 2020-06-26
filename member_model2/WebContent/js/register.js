@@ -37,7 +37,8 @@ $(function(){ // 시작하겠다!
 		// 메세지
 		messages:{
 			userid:{
-				required : "아이디는 필수 속성입니다."
+				required : "아이디는 필수 속성입니다.",
+				remote : "이 아이디는 사용 중 입니다."
 			},
 			userpw:{
 				required : "비밀번호는 필수 속성입니다."

@@ -145,4 +145,25 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	// 아이디 중복
+	public boolean checkId(String userid) {
+		String sql = "select * from member where userid=?";
+		
+		int result = 0;
+		
+		try(Connection con = getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setString(1, userid);
+			
+				ResultSet rs = pstmt.executeQuery();
+				if(rs.next()) {
+					return true; // 중복 아이디 있음
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 }

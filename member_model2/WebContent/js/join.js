@@ -14,7 +14,16 @@ $(function(){
 		rules:{
 			userid:{
 				required : true,
-				validID : true
+				validID : true,
+				remote : { // ajax 대신 remote
+					url : "../checkId.do",
+					type : "post",
+					data : {
+						userid : function(){
+							return $('#userid').val();
+						}
+					}
+				}
 			},
 			password:{
 				required : true,
@@ -40,7 +49,8 @@ $(function(){
 		// 메세지
 		messages:{
 			userid:{
-				required : "아이디는 필수 속성입니다."
+				required : "아이디는 필수 속성입니다.",
+				remote : "이 아이디는 사용중입니다."
 			},
 			password:{
 				required : "비밀번호는 필수 속성입니다."
@@ -65,17 +75,18 @@ $(function(){
 			$(element).closest("form").find("small[id='"+element.attr("id")+"']").append(error);
 		}
 	})
-	// 유효성 검증
-	$.validator.addMethod("validID",function(value){
-		const regId = /(?=.*[A-z])(?=.*\d)(?=.*[!@#$%^&*])[A-z\d!@#$%^&*]{6,12}/;
-		return regId.test(value);
-	}, "아이디는 영문자, 숫자, 특수문자의 조합으로 6~12자리 만들어야 합니다.");
-	$.validator.addMethod("validPWD",function(value){
-		const regPwd = /(?=^[A-z])(?=.*\d)(?=.*[!@#$%^&*])[A-z\d!@#$%^&*]{8,15}$/;
-		return regPwd.test(value);
-	}, "비밀번호는 영문자, 숫자, 특수문자의 조합으로 8~15자리 만들어야 합니다.");
-	$.validator.addMethod("validNAME",function(value){
-		const regName = /^[가-힣]{2,4}$/;
-		return regName.test(value);
-	}, "이름은 2~4자리로 입력해주세요.");
 })
+
+// 유효성 검증
+$.validator.addMethod("validID",function(value){
+	const regId = /(?=.*[A-z])(?=.*\d)(?=.*[!@#$%^&*])[A-z\d!@#$%^&*]{6,12}/;
+	return regId.test(value);
+}, "아이디는 영문자, 숫자, 특수문자의 조합으로 6~12자리 만들어야 합니다.");
+$.validator.addMethod("validPWD",function(value){
+	const regPwd = /(?=^[A-z])(?=.*\d)(?=.*[!@#$%^&*])[A-z\d!@#$%^&*]{8,15}$/;
+	return regPwd.test(value);
+}, "비밀번호는 영문자, 숫자, 특수문자의 조합으로 8~15자리 만들어야 합니다.");
+$.validator.addMethod("validNAME",function(value){
+	const regName = /^[가-힣]{2,4}$/;
+	return regName.test(value);
+}, "이름은 2~4자리로 입력해주세요.");

@@ -97,12 +97,12 @@ $(function(){
 	init();
 	
 	$("input[type='button']").click(function(){
-		let url = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.xml?key=5b38823b0cbf3654dc8373cc8f5a322c&targetDt=";
+		let url = "	http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=5b38823b0cbf3654dc8373cc8f5a322c&targetDt=";
 		// 사용자가 선택한 날짜 가져오기
 		url+=$("#txtYear").val()+$("#selMon").val()+$("#selDay").val();
 		console.log(url);
 		
-		// ajax로 데이터 요청하기
+		// JSON으로 데이터 요청하기
 		$.ajax({
 			url : url,
 			type : "get", // 안적어도 default
@@ -110,15 +110,15 @@ $(function(){
 				console.log(data);
 				let str = "";
 				// 사용자가 요청한 날짜에 집계처리가 안된 경우 (미래)
-				if($(data).find("dailyBoxOffice").text()===""){
+				if(Object.keys(data.boxOfficeResult.dailyBoxOfficeList).length===0){
 					alert("데이터가 없습니다.");
 				}
 				
-				$(data).find("dailyBoxOffice").each(function() {
+				$(data.boxOfficeResult.dailyBoxOfficeList).each(function(i, item) {
 					// 순위 가져오기
-					str += $(this).find("rank").text()+" 위";
+					str += item.rank +" 위";
 					// 증감 가져오기
-					var rankInten = parseInt($(this).find("rankInten").text());
+					var rankInten = parseInt(item.rankInten);
 					
 					// 증감에 따라 기호와 같이 보여주기
 					if(rankInten > 0)
@@ -131,8 +131,8 @@ $(function(){
 					str += rankInten + ") : ";
 					
 					// 영화 이름 가져오기
-					var movieNm = $(this).find("movieNm").text()+"<br>";
-					var movieCd = $(this).find("movieCd").text();
+					var movieNm = item.movieNm +"<br>";
+					var movieCd = item.movieCd;
 					str += "<a href='#' onclick='javascript:show("+movieCd+")'>"+movieNm+"</a>";
 					
 					// 관객수 가져오기
@@ -173,33 +173,36 @@ $(function(){
 	
 // 영화 상세 정보
 function show(movieCd){
-	let url = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.xml?key=5b38823b0cbf3654dc8373cc8f5a322c&movieCd=";
+	let url = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=5b38823b0cbf3654dc8373cc8f5a322c&movieCd=";
 	url += movieCd;
 	console.log(url);
 	
-	$.ajax({
+	$.getJSON({
 		url : url,
 		type : "get",
 		success : function(data){
 			let str = "<ul>";
+			console.log(data);
 			
+			let movieInfo = data.movieInfoResult.movieInfo;
+						
 			// 영화 제목 가져오기
-			let movieNm = $(data).find("movieNm").text();
+			let movieNm = movieInfo.movieNm;
 			// 영어 제목
-			let movieNmEn = $(data).find("movieNmEn").text();
+			let movieNmEn = movieInfo.movieNmEn;
 			// 상영 시간
-			let showTm = $(data).find("showTm").text();
+			let showTm = movieInfo.showTm;
 			// 감독
-			let director = $(data).find("director").find("peopleNm").text();
+			let director = movieInfo.directors[0].peopleNm;
 			// 배우
 			let peopleNm = "";
 			// 출연 배우가 몇명인지 알아내기
-			let length = $(data).find("actor").find("peopleNm").length;
-			$(data).find("actor").each(function(idx){
+			let length = movieInfo.actors.length;
+			$.each(movieInfo.actors,function(idx,item){
 				if(idx == length -1){
-					peopleNm += $(this).find("peopleNm").text();
+					peopleNm += item.peopleNm;
 				}else {
-					peopleNm += $(this).find("peopleNm").text()+" , ";					
+					peopleNm += item.peopleNm+" , ";					
 				}
 			})
 			
